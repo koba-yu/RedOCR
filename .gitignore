@@ -1,0 +1,6 @@
+libRedRT.dll
+libRedRT-defs.r
+libRedRT-extras.r
+libRedRT-include.red
+*.exe
+*.dll
