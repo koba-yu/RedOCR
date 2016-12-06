@@ -19,5 +19,5 @@ tesseract-api.red
 tessered.red
 : object for ocr
 
-sample.exe
+sample.red
 : a sample code.
