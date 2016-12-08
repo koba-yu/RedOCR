@@ -6,7 +6,7 @@ Red [
 
 #include %tesseract-api.red
 
-tessered!: context [
+tessered: context [
 
     api: tesseract-api
 
