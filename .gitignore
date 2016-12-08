@@ -4,3 +4,4 @@ libRedRT-extras.r
 libRedRT-include.red
 *.exe
 *.dll
+/tessdata
