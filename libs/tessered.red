@@ -18,13 +18,13 @@ tessered: context [
     ocr-image: func [
         filepath [file! string!]
         return: [string!]
-        /local pix text init-code handle
+        /local pix text ini-code handle
     ] [
         handle: api/create
-        init-code: api/init handle to-local-file settings/tessdata to string! settings/lang
+        ini-code: api/init handle to-local-file settings/tessdata to string! settings/lang
                     
-        unless init-code = 0 [
-            throw rejoin ["api initialization failed. result code:" init-code]
+        unless ini-code = 0 [
+            throw rejoin ["api initialization failed. result code:" ini-code]
         ]
 
         pix: api/read-image to-local-file filepath        
