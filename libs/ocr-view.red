@@ -3,8 +3,13 @@ Red [
     File: %ocr-view.red
     Author: Koba-yu
     Needs: 'View
+    Comments: {
+        This code uses redCV (https://github.com/ldci/redCV)
+        Image scaling function & UI is based on the redCV sample.
+    }
 ]
 
+; needs redCV library
 #include %../../redCV/libs/redcv.red
 
 margins: 10x10
@@ -18,7 +23,10 @@ view [
     text "Image File"
     return
     file: field 400x30
-    button "select..." [file/text: to-string request-file/title "Select an image file."]
+    button "select..." [
+        f: request-file/title "Select an image file."
+        if f [file/text: to-string f]
+    ]
     return
     sl1: slider 290 [
         sz/text: form face/data * 2
@@ -34,7 +42,6 @@ view [
             append drawBlk [img1]
             drawBlk/2 0.005 + sl1/data * 2
             drawBlk/3 0.005 + sl1/data * 2
-            face/size: img1/size
             face/draw: drawBlk
         ]
     ]	
