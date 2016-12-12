@@ -6,10 +6,6 @@ Red [
 
 #include %tesseract-api.red
 
-; #alias rect!: object [
-;     left: top: width: height: 0
-; ]
-
 tessered!: object [
 
     api: tesseract-api
@@ -21,7 +17,6 @@ tessered!: object [
 
     ocr-image: function [
         filepath [file! string!]
-        ; /area rect [rect!] 
         return: [string!]
     ] [
         handle: api/create
@@ -33,9 +28,7 @@ tessered!: object [
 
         pix: api/read-image to-local-file filepath        
         api/set-image handle pix
-
-        ; if area [api/set-rectangle rect/left rect/top rect/width rect/height]
-
+        
         text: api/get-utf8-text handle        
 
         api/dispose handle

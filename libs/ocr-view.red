@@ -15,45 +15,52 @@ Red [
 ; this code also needs redCV library for image scaling
 #include %../../redCV/libs/redcv.red
 
-dir: get-current-dir
 margins: 10x10
 factor: 1.0
-drawBlk: []
-img1: none
+draw-block: []
+image: none
+result: ""
+default-tessdata: to-local-file clean-path %./tessdata
 
 view [
     title "ocr-view"
     origin margins
     text "Image File"
-    return
     file: field 430x30
     button "select..." [
         f: request-file/title "Select an image file."
         if f [file/text: to-string f]
-        set-current-dir dir
-    ]
-    button "OCR" [
-        tess: make tessered! []
-        result/text: tess/ocr-image %./images/test_eng.png
     ]
     return
-    sl1: slider 290 [
-        sz/text: form face/data * 2
+    text "tessdata folder"
+    tessdata: field 200x30 default-tessdata
+    text "language"
+    lang: field 100x30 "eng"
+    button "OCR" [
+        tess: make tessered! [
+            settings/tessdata: tessdata/text
+            settings/lang: lang/text
+        ]
+        result: tess/ocr-image file/text
+        ocr-result/text: result
+    ]
+    zoom: slider 290 [
+        size/text: form face/data * 2
         factor:  0.005 + face/data * 2
     ]
-	sz: field 50 "1.0"
+	size: field 50 "1.0"
     return 
     canvas: base 600x600 black react [
         if not none? file/text [
-            clear drawBlk
-            img1: rcvLoadImage to-red-file file/text
-            drawBlk: rcvScaleImage factor
-            append drawBlk [img1]
-            drawBlk/2 0.005 + sl1/data * 2
-            drawBlk/3 0.005 + sl1/data * 2
-            face/draw: drawBlk
+            clear draw-block
+            image: rcvLoadImage to-red-file file/text
+            draw-block: rcvScaleImage factor
+            append draw-block [image]
+            draw-block/2 0.005 + zoom/data * 2
+            draw-block/3 0.005 + zoom/data * 2
+            face/draw: draw-block
         ]
     ]
-    result: area 600x600
-    do [sl1/data: 0.5]
+    ocr-result: field 300x600
+    do [zoom/data: 0.5]
 ]
