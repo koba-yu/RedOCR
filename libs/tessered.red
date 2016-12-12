@@ -6,7 +6,7 @@ Red [
 
 #include %tesseract-api.red
 
-tessered: context [
+tessered!: object [
 
     api: tesseract-api
 
@@ -15,10 +15,9 @@ tessered: context [
         lang: 'eng
     ]
 
-    ocr-image: func [
+    ocr-image: function [
         filepath [file! string!]
         return: [string!]
-        /local pix text ini-code handle
     ] [
         handle: api/create
         ini-code: api/init handle to-local-file settings/tessdata to string! settings/lang
@@ -29,7 +28,7 @@ tessered: context [
 
         pix: api/read-image to-local-file filepath        
         api/set-image handle pix
-
+        
         text: api/get-utf8-text handle        
 
         api/dispose handle
