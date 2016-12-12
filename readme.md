@@ -16,16 +16,16 @@ See comments in the code sample.
 Other than tesseract-ocr and Red, this repository uses [redCV](https://github.com/ldci/redCV) for image scaling behavior.
 
 ## Files
-tesseract-api.red
-: import and routine definition for tesseract API
+#### tesseract-api.red
+import and routine definition for tesseract API
 
-tessered.red
-: object for ocr
+#### tessered.red  
+object for ocr
 
-sample.red
-: a sample command line code.
+#### sample.red
+a sample command line code.
 
-ocr-view.red
-: a sample OCR UI, it can select an image file, tessdata folder and language.
+#### ocr-view.red
+A sample OCR UI, it can select an image file, tessdata folder and language.
 To compile this code, you need to set [redCV](https://github.com/ldci/redCV) repository folder 
 on the same hierarchy of this repository.
