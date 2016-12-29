@@ -46,6 +46,13 @@ tesseract-api: context [
                 _pixDestroy: "pixDestroy" [
                     ppix [int-ptr!] "pointer of pix, not pix itself"
                 ]
+                _pixWriteJpeg: "pixWriteJpeg" [
+                    filename [c-string!]
+                    pix [int-ptr!]
+                    quality [integer!]
+                    progressive [integer!]
+                    return: [integer!]
+                ]
             ]
         ]
     ]
@@ -111,5 +118,15 @@ tesseract-api: context [
     ] [
         ; pixDestroy requires pointer of pix
         _pixDestroy :pix
+    ]
+
+    write-jpeg: routine [
+        filename [string!]
+        pix [integer!]
+        ; quality [integer!]
+        ; progressive [integer!]
+        return: [integer!]        
+    ] [
+        _pixWriteJpeg as c-string! string/rs-head filename as int-ptr! pix 75 0
     ]
 ]
