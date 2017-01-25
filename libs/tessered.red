@@ -34,10 +34,15 @@ tessered!: object [
                         return: [c-string!]
                     ]
                     _set-rectangle: "TessBaseAPISetRectangle" [
+                        handle [int-ptr!]
                         left [integer!]
                         top [integer!]
                         width [integer!]
                         height [integer!]
+                    ]
+                    _recognize: "TessBaseAPIRecognize" [
+                        handle [integer!]
+                        monitor [integer!]
                     ]
                 ]
                 "liblept-5.dll" cdecl [
@@ -100,12 +105,18 @@ tessered!: object [
             _set-image as int-ptr! handle as int-ptr! pix
         ]
         set-rectangle: routine [
+            handle [integer!]
             left [integer!]
             top [integer!]
             width [integer!]
             height [integer!]
         ] [
-            _set-rectangle left top width height
+            _set-rectangle as int-ptr! handle left top width height
+        ]
+        recognize: routine [
+            handle [integer!]
+        ] [
+            _recognize handle null
         ]
         dispose-pix: routine [
             pix [integer!]
@@ -139,11 +150,17 @@ tessered!: object [
 
     ocr-image: function [
         filepath [file! string!]
+        /rect left top width height
         return: [string!]
     ] [
         pix: do [routines/read-image to-local-file filepath]
         do [routines/set-image settings/handle pix]
         
+        if rect [
+            do [routines/set-rectangle settings/handle left top width height] 
+            do [routines/recognize settings/handle]
+        ]
+
         text: do [routines/get-utf8-text settings/handle]
 
         do [routines/dispose settings/handle]

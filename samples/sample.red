@@ -13,8 +13,10 @@ tess: make tessered! []
 ; If you want to change tessdata folder, specify it in the spec block, as follows. 
 ; tess: make tessered [settings/tessdata: %"/C/Program Files (x86)/Tesseract-OCR"]
 
-text: tess/ocr-image %./images/test_eng.png
+;text: tess/ocr-image %./images/test_eng.png
+text: tess/ocr-image/rect %./images/test_eng.png 311 307 60 30
 print ["result:" text ]
+
 
 ; English is default OCR language. 
 ; you need to specify language if you do OCR in other languages.
