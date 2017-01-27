@@ -3,17 +3,10 @@ Red [
     File: %ocr-view.red
     Author: Koba-yu
     Needs: 'View
-    Comments: {
-        This code uses redCV (https://github.com/ldci/redCV)
-        Image scaling function & UI is based on the redCV sample.
-    }
 ]
 
 ; include tessered
 #include %tessered.red
-
-; this code also needs redCV library for image scaling
-#include %../../redCV/libs/redcv.red
 
 margins: 10x10
 factor: 1.0
@@ -21,6 +14,14 @@ draw-block: []
 image: none
 result: ""
 default-tessdata: to-local-file clean-path %./tessdata
+
+; Scaling function taught on the Red Google Group (https://groups.google.com/forum/#!topic/red-lang/IDA_EJOcJtE)
+ScaleImage: function [
+    factor [float!]
+    return: [block!] "Returns a Draw block for image scaling"
+][
+	compose [scale (factor) (factor) image]
+]
 
 view [
     title "ocr-view"
@@ -53,8 +54,8 @@ view [
     canvas: base 600x600 black react [
         if not none? file/text [
             clear draw-block
-            image: rcvLoadImage to-red-file file/text
-            draw-block: rcvScaleImage factor
+            image: load to-red-file file/text
+            draw-block: ScaleImage factor
             append draw-block [image]
             draw-block/2 0.005 + zoom/data * 2
             draw-block/3 0.005 + zoom/data * 2
