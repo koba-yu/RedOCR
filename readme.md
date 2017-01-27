@@ -12,9 +12,6 @@ Put the compiled files to tesseract dll folder.
 Also you have to specify the "tessdata" folder (the language training data folder) in the code.  
 See comments in the code sample.
 
-# Dependency
-Other than tesseract-ocr and Red, this repository uses [redCV](https://github.com/ldci/redCV) for image scaling behavior.
-
 ## Files
 #### tesseract-api.red
 import and routine definition for tesseract API
