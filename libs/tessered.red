@@ -4,6 +4,11 @@ Red [
     Author: Koba-yu
 ]
 
+;
+; Routines in nested context should be called by 'do' function
+; because of the issue #2405 (https://github.com/red/red/issues/2405)
+;
+
 tessered!: object [
 
     routines: context [
@@ -160,10 +165,8 @@ tessered!: object [
             do [routines/set-rectangle settings/handle left top width height] 
             do [routines/recognize settings/handle]
         ]
-
+        
         text: do [routines/get-utf8-text settings/handle]
-
-        do [routines/dispose settings/handle]
         do [routines/dispose-pix pix]
         text
     ]
@@ -175,8 +178,11 @@ tessered!: object [
     ] [
         pix: do [routines/read-image to-local-file read-file]
         ret: do [routines/write-jpeg to-local-file destination pix]
-        do [routines/dispose settings/handle]
         do [routines/dispose-pix pix]
         ret
+    ]
+
+    dispose: function [] [
+        do [routines/dispose settings/handle]
     ]
 ]
