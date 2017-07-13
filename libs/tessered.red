@@ -4,10 +4,6 @@ Red [
     Author: Koba-yu
 ]
 
-;
-; Routines in nested context should be called by 'do' function
-; because of the issue #2405 (https://github.com/red/red/issues/2405)
-;
 tessered!: object [
 
     routines: context [
@@ -22,8 +18,8 @@ tessered!: object [
     init: function [
         return: [integer!]
     ] [
-        hdl: do routines/create
-        ret: do routines/init hdl to-local-file settings/tessdata to string! settings/lang
+        hdl: routines/create
+        ret: routines/init hdl to-local-file settings/tessdata to string! settings/lang
         unless ret = 0 [ throw rejoin ["api initialization failed. result code:" ret] ]
         hdl
     ]
@@ -35,17 +31,17 @@ tessered!: object [
     ] [
         handle: init        
 
-        pix: do [routines/read-image to-local-file filepath]
-        do [routines/set-image handle pix]
+        pix: routines/read-image to-local-file filepath
+        routines/set-image handle pix
         
         if rect [
-            do [routines/set-rectangle handle left top width height] 
-            do [routines/recognize handle]
+            routines/set-rectangle handle left top width height
+            routines/recognize handle
         ]
         
-        text: do [routines/get-utf8-text handle]
-        do [routines/dispose-pix pix]
-        do [routines/dispose handle]
+        text: routines/get-utf8-text handle
+        routines/dispose-pix pix
+        routines/dispose handle
         text
     ]
 
@@ -54,8 +50,8 @@ tessered!: object [
         destination [file! string!]
         return: [integer!]
     ] [
-        pix: read-image to-local-file read-file
-        ret: write-jpeg to-local-file destination pix
+        pix: routines/read-image to-local-file read-file
+        ret: routines/write-jpeg to-local-file destination pix
         dispose-pix pix
         ret
     ]
