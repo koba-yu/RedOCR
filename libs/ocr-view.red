@@ -8,24 +8,20 @@ Red [
 ; include tessered
 #include %tessered.red
 
-margins: 10x10
 factor: 1.0
-draw-block: []
-image: none
-result: ""
-default-tessdata: to-local-file clean-path %./tessdata
+draw: []
 
 ; Scaling function taught on the Red Google Group (https://groups.google.com/forum/#!topic/red-lang/IDA_EJOcJtE)
-ScaleImage: function [
+scale-image: function [
     factor [float!]
     return: [block!] "Returns a Draw block for image scaling"
 ][
 	compose [scale (factor) (factor) image]
 ]
 
-view [
+view compose [
     title "ocr-view"
-    origin margins
+    origin 10x10
     text "Image File"
     file: field 430x30
     button "select..." [
@@ -34,11 +30,11 @@ view [
     ]
     return
     text "tessdata folder"
-    tessdata: field 200x30 default-tessdata
+    tessdata: field 200x30 (to-local-file clean-path %./tessdata)
     text "language"
     lang: field 100x30 "eng"
     button "OCR" [
-        tess: make tessered! [
+        tess: make tessered [
             settings/tessdata: tessdata/text
             settings/lang: lang/text
         ]
@@ -53,13 +49,13 @@ view [
     return 
     canvas: base 600x600 black react [
         if not none? file/text [
-            clear draw-block
+            clear draw
             image: load to-red-file file/text
-            draw-block: ScaleImage factor
-            append draw-block [image]
-            draw-block/2 0.005 + zoom/data * 2
-            draw-block/3 0.005 + zoom/data * 2
-            face/draw: draw-block
+            draw: scale-image factor
+            append draw [image]
+            draw/2 0.005 + zoom/data * 2
+            draw/3 0.005 + zoom/data * 2
+            face/draw: draw
         ]
     ]
     ocr-result: field 300x600

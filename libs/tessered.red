@@ -4,7 +4,7 @@ Red [
     Author: Koba-yu
 ]
 
-tessered!: object [
+tessered: context [
 
     routines: context [
         #include %tessapi.red
@@ -18,10 +18,10 @@ tessered!: object [
     init: function [
         return: [integer!]
     ] [
-        hdl: routines/create
-        ret: routines/init hdl to-local-file settings/tessdata to string! settings/lang
+        handle: routines/create
+        ret: routines/init handle to-local-file settings/tessdata to string! settings/lang
         unless ret = 0 [ throw rejoin ["api initialization failed. result code:" ret] ]
-        hdl
+        handle
     ]
 
     ocr-image: function [
