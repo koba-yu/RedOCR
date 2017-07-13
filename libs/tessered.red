@@ -140,17 +140,18 @@ tessered!: object [
         ]
     ]
 
-    settings: make reactor! [
+    settings: [
         tessdata: %./tessdata
         lang: 'eng
-        handle: is [
-            do function [][
-                hdl: do routines/create
-                ini-code: do routines/init hdl to-local-file tessdata to string! lang
-                unless ini-code = 0 [ throw rejoin ["api initialization failed. result code:" ini-code] ]
-                hdl
-            ]
-        ]
+    ]
+
+    init: function [
+        return: [integer!]
+    ] [
+        hdl: do routines/create
+        ret: do routines/init hdl to-local-file settings/tessdata to string! settings/lang
+        unless ret = 0 [ throw rejoin ["api initialization failed. result code:" ret] ]
+        hdl
     ]
 
     ocr-image: function [
@@ -158,16 +159,19 @@ tessered!: object [
         /rect left top width height
         return: [string!]
     ] [
+        handle: init        
+
         pix: do [routines/read-image to-local-file filepath]
-        do [routines/set-image settings/handle pix]
+        do [routines/set-image handle pix]
         
         if rect [
-            do [routines/set-rectangle settings/handle left top width height] 
-            do [routines/recognize settings/handle]
+            do [routines/set-rectangle handle left top width height] 
+            do [routines/recognize handle]
         ]
         
-        text: do [routines/get-utf8-text settings/handle]
+        text: do [routines/get-utf8-text handle]
         do [routines/dispose-pix pix]
+        do [routines/dispose handle]
         text
     ]
 
@@ -180,9 +184,5 @@ tessered!: object [
         ret: do [routines/write-jpeg to-local-file destination pix]
         do [routines/dispose-pix pix]
         ret
-    ]
-
-    dispose: function [] [
-        do [routines/dispose settings/handle]
     ]
 ]
