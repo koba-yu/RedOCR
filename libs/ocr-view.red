@@ -30,13 +30,13 @@ view compose [
     ]
     return
     text "tessdata folder"
-    tessdata: field 200x30 (to-local-file clean-path %./tessdata)
+    folder: field 200x30 (to-local-file clean-path %./tessdata)
     text "language"
-    lang: field 100x30 "eng"
+    language: field 100x30 "eng"
     button "OCR" [
         tess: make tessered [
-            settings/tessdata: tessdata/text
-            settings/lang: lang/text
+            tessdata: folder/text
+            lang: language/text
         ]
         result: tess/ocr-image file/text
         ocr-result/text: result

@@ -4,23 +4,21 @@ Red [
     Author: Koba-yu
 ]
 
+tessapi: context [
+    #include %tessapi.red 
+]
+
 tessered: context [
 
-    routines: context [
-        #include %tessapi.red
-    ]
-
-    settings: [
-        tessdata: %./tessdata
-        lang: 'eng
-    ]
+    tessdata: %./tessdata
+    lang: "eng"   
 
     init: function [
         return: [integer!]
     ] [
-        handle: routines/create
-        ret: routines/init handle to-local-file settings/tessdata to string! settings/lang
-        unless ret = 0 [ throw rejoin ["api initialization failed. result code:" ret] ]
+        handle: tessapi/create
+        ret: tessapi/init handle to-local-file tessdata lang
+        unless ret = 0 [ throw rejoin ["API initialization failed. result code:" ret] ]
         handle
     ]
 
@@ -31,17 +29,17 @@ tessered: context [
     ] [
         handle: init        
 
-        pix: routines/read-image to-local-file filepath
-        routines/set-image handle pix
+        pix: tessapi/read-image to-local-file filepath
+        tessapi/set-image handle pix
         
         if rect [
-            routines/set-rectangle handle left top width height
-            routines/recognize handle
+            tessapi/set-rectangle handle left top width height
+            tessapi/recognize handle
         ]
         
-        text: routines/get-utf8-text handle
-        routines/dispose-pix pix
-        routines/dispose handle
+        text: tessapi/get-utf8-text handle
+        tessapi/dispose-pix pix
+        tessapi/dispose handle
         text
     ]
 
@@ -50,9 +48,9 @@ tessered: context [
         destination [file! string!]
         return: [integer!]
     ] [
-        pix: routines/read-image to-local-file read-file
-        ret: routines/write-jpeg to-local-file destination pix
-        dispose-pix pix
+        pix: tessapi/read-image to-local-file read-file
+        ret: tessapi/write-jpeg to-local-file destination pix
+        tessapi/dispose-pix pix
         ret
     ]
 ]

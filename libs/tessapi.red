@@ -125,7 +125,8 @@ write-jpeg: routine [
     pix [integer!]
     ; quality [integer!]
     ; progressive [integer!]
-    return: [integer!]        
+    return: [integer!]      
+    /local t  
 ] [
     _pixWriteJpeg as c-string! string/rs-head filename as int-ptr! pix 75 0
 ]
