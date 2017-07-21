@@ -1,6 +1,7 @@
 Red [
     Title: "tessapi"
     File: "%tessapi.red"
+    Author: Koba-yu
 ]
 
 ;
@@ -41,22 +42,6 @@ Red [
                 monitor [integer!]
             ]
         ]
-        "liblept-5.dll" cdecl [
-            _read-image: "pixRead" [
-                filename [c-string!]
-                return: [int-ptr!]
-            ]
-            _pixDestroy: "pixDestroy" [
-                ppix [int-ptr!] "pointer of pix, not pix itself"
-            ]
-            _pixWriteJpeg: "pixWriteJpeg" [
-                filename [c-string!]
-                pix [int-ptr!]
-                quality [integer!]
-                progressive [integer!]
-                return: [integer!]
-            ]
-        ]
     ]
 ]
 ;
@@ -80,13 +65,7 @@ init: routine [
 ] [
     _init as int-ptr! handle as c-string! string/rs-head datapath as c-string! string/rs-head lang
 ]
-read-image: routine [
-    filepath [string!]
-    return: [integer!]
-] [
-    as integer! _read-image as c-string! string/rs-head filepath
-]
-get-utf8-text: routine [
+do-ocr: routine [
     handle [integer!]        
     /local text [c-string!] size [integer!]
 ] [
@@ -113,20 +92,4 @@ recognize: routine [
     handle [integer!]
 ] [
     _recognize handle null
-]
-dispose-pix: routine [
-    pix [integer!]
-] [
-    ; pixDestroy requires pointer of pix
-    _pixDestroy :pix
-]
-write-jpeg: routine [
-    filename [string!]
-    pix [integer!]
-    ; quality [integer!]
-    ; progressive [integer!]
-    return: [integer!]      
-    /local t  
-] [
-    _pixWriteJpeg as c-string! string/rs-head filename as int-ptr! pix 75 0
 ]

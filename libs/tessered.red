@@ -4,6 +4,10 @@ Red [
     Author: Koba-yu
 ]
 
+lepapi: context [
+    #include %lepapi.red    
+]
+
 tessapi: context [
     #include %tessapi.red 
 ]
@@ -29,7 +33,7 @@ tessered: context [
     ] [
         handle: init        
 
-        pix: tessapi/read-image to-local-file filepath
+        pix: lepapi/read to-local-file filepath
         tessapi/set-image handle pix
         
         if rect [
@@ -37,8 +41,8 @@ tessered: context [
             tessapi/recognize handle
         ]
         
-        text: tessapi/get-utf8-text handle
-        tessapi/dispose-pix pix
+        text: tessapi/do-ocr handle
+        lepapi/dispose pix
         tessapi/dispose handle
         text
     ]
@@ -48,9 +52,9 @@ tessered: context [
         destination [file! string!]
         return: [integer!]
     ] [
-        pix: tessapi/read-image to-local-file read-file
-        ret: tessapi/write-jpeg to-local-file destination pix
-        tessapi/dispose-pix pix
+        pix: lepapi/read to-local-file read-file
+        ret: lepapi/write-jpeg to-local-file destination pix
+        lepapi/dispose pix
         ret
     ]
 ]
