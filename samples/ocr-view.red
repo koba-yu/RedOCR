@@ -6,7 +6,7 @@ Red [
 ]
 
 ; include tessered
-#include %tessered.red
+#include %../libs/tessered.red
 
 factor: 1.0
 draw: []
@@ -38,7 +38,7 @@ view compose [
             tessdata: folder/text
             lang: language/text
         ]
-        result: tess/ocr-image file/text
+        result: tess/do-ocr file/text
         ocr-result/text: result
     ]
     zoom: slider 290 [
