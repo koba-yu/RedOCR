@@ -24,6 +24,11 @@ Red [
                 progressive [integer!]
                 return: [integer!]
             ]
+            _pixDeskew: "pixDeskew" [
+                pix [int-ptr!]
+                redsearch [integer!]
+                return: [int-ptr!]
+            ]
         ]
     ]
 ]
@@ -51,4 +56,10 @@ write-jpeg: routine [
     /local t  
 ] [
     _pixWriteJpeg as c-string! string/rs-head filename as int-ptr! pix 75 0
+]
+deskew: routine [
+    pix [integer!]
+    return: [integer!]
+] [
+    as integer! _pixDeskew as int-ptr! pix 0
 ]
