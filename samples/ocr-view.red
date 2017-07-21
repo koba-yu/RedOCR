@@ -38,7 +38,7 @@ view compose [
             tessdata: folder/text
             lang: language/text
         ]
-        result: tess/do-ocr file/text
+        result: tess/ocr file/text
         ocr-result/text: result
     ]
     zoom: slider 290 [

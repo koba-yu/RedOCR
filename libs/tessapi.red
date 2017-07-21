@@ -65,7 +65,7 @@ init: routine [
 ] [
     _init as int-ptr! handle as c-string! string/rs-head datapath as c-string! string/rs-head lang
 ]
-do-ocr: routine [
+ocr: routine [
     handle [integer!]        
     /local text [c-string!] size [integer!]
 ] [
