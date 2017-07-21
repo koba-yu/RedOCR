@@ -1,6 +1,7 @@
 Red [
     Title: "tif to jpeg sample"
     File: %tif-to-jpeg.red
+    Author: Koba-yu
 ]
 
 #include %../libs/tessered.red

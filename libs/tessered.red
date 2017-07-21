@@ -26,7 +26,7 @@ tessered: context [
         handle
     ]
 
-    ocr-image: function [
+    do-ocr: function [
         filepath [file! string!]
         /rect left top width height
         return: [string!]
