@@ -4,8 +4,7 @@ Red [
     Author: Koba-yu
 ]
 
-#include %../libs/tessered.red
+#include %../libs/redocr.red
 
-tess: make tessered []
-ret: tess/to-jpeg %./images/test_tif.tif %./images/test_jpg.jpg
+ret: redocr/to-jpeg %./images/test_tif.tif %./images/test_jpg.jpg
 print ret

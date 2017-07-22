@@ -1,30 +1,29 @@
 Red [
-    Title: "tesseract sample"
+    Title: "ocr sample"
     File: %sample.red
     Author: Koba-yu
 ]
 
-#include %../libs/tessered.red
+#include %../libs/redocr.red
 
-; make tessered object with default setting.
-; It expects tessdata folder exists in the program executing folder.
+; By default, redocr expects tessdata folder exists in the program executing folder.
 ; If you want to change tessdata folder, specify it in the spec block, as follows. 
-; tess: make tessered [settings/tessdata: %"/C/Program Files (x86)/Tesseract-OCR"]
-tess: make tessered! []
+; ocrda [settings/tessdata: %"/C/Program Files (x86)/Tesseract-OCR"]
 
 ; Whole image OCR
-text: tess/ocr %./images/test_eng.png
+text: redocr/ocr %./images/test_eng.png
 print ["result:" text ]
 
 ; OCR within the specified area by /rect refinement 
-text: tess/ocr/rect %./images/test_eng.png 311 307 60 30
+text: redocr/ocr/rect %./images/test_eng.png 311 307 60 30
 print ["result:" text ]
-tess/dispose
-
 
 ; English is default OCR language. 
 ; you need to specify language if you do OCR in other languages.
-tess: make tessered! [settings/lang: 'jpn]
-text: tess/ocr %./images/test_jpn.png
+redocr/lang: "jpn"
+
+; By default, redocr expects tessdata folder exists in the program executing folder.
+; If you want to change tessdata folder, specify it in the spec block, as follows. 
+redocr/tessdata: %./tessdata
+text: redocr/ocr %./images/test_jpn.png
 print ["result:" text ]
-tess/dispose

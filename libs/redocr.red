@@ -1,6 +1,6 @@
 Red [
-    Title: "tessered"
-    File: %tessered.red
+    Title: "redocr"
+    File: %redocr.red
     Author: Koba-yu
 ]
 
@@ -12,12 +12,12 @@ tessapi: context [
     #include %tessapi.red 
 ]
 
-tessered: context [
+redocr: context [
 
     tessdata: %./tessdata
     lang: "eng"   
 
-    init: function [
+    _init: function [
         return: [integer!]
     ] [
         handle: tessapi/create
@@ -26,12 +26,12 @@ tessered: context [
         handle
     ]
 
-    do-ocr: function [
+    ocr: function [
         filepath [file! string!]
         /rect left top width height
         return: [string!]
     ] [
-        handle: init        
+        handle: _init        
 
         pix: lepapi/read to-local-file filepath
         tessapi/set-image handle pix
@@ -41,7 +41,7 @@ tessered: context [
             tessapi/recognize handle
         ]
         
-        text: tessapi/do-ocr handle
+        text: tessapi/ocr handle
         lepapi/dispose pix
         tessapi/dispose handle
         text

@@ -1,28 +1,54 @@
-# tessered: tesseract-ocr Red binding
-[tesseract-ocr](https://github.com/tesseract-ocr/tesseract) for [Red programming language](https://github.com/red/red)
+# RedOCR
+OCR and image processing for [Red programming language](https://github.com/red/red).  
+This code needs following libraries.  
 
-So far, this program is a personal studying and might have many changes frequently.  
+## [tesseract-ocr](https://github.com/tesseract-ocr/tesseract)  
+C/C++ OCR library.
+
+## [Leptonica](https://github.com/DanBloomberg/leptonica)   
+Image processing library of C.
+
+# Instruction
+This program is under developing and might have many changes frequently.  
 But any advices or suggestions are welcomed.
 
-To execute the sample code, install tesseract, by following the instruction below.  
+To execute the sample code, install tesseract(it includes Leptonica), by following the instruction below.  
 https://github.com/tesseract-ocr/tesseract
 
-You need to compile to execute the sample command line code or the UI sample.  
-Put the compiled files to tesseract dll folder.  
-Also you have to specify the "tessdata" folder (the language training data folder) in the code.  
-See comments in the code sample.
+You need to compile to execute the sample codes because they use routines.  
+Put the compiled executable and depending libraries on the same folder.  
+Also, if you use OCR function, you have to specify the "tessdata" folder (the language training data folder) in the code.  
 
-## Files
-#### tesseract-api.red
-import and routine definition for tesseract API
+# Repository Structure
+## Folder
+### images
+Sample images.
 
-#### tessered.red  
-object for ocr
+### libs
+Library files.
 
-#### sample.red
-a sample command line code.
+### samples
+Sample codes.
 
-#### ocr-view.red
-A sample OCR UI, it can select an image file, tessdata folder and language.
-To compile this code, you need to set [redCV](https://github.com/ldci/redCV) repository folder 
-on the same hierarchy of this repository.
+## Library Files
+### lepapi.red
+Routine definiiton for Leptonica API.  
+
+### tessapi.red
+Routine definition for tesseract-ocr API
+
+### redocr.red  
+Main object containing Leptonica and tesseract APIs.
+
+## Sample Codes
+### deskew.red
+Auto detection of image skew and make the deskewed image.
+
+### ocr-view.red
+A Sample UI to select an image, specify tesseract settings and do OCR.
+
+### ocr.red
+A simple hard-coded ocr sample.
+
+### tif-to-jpeg.red
+A sample to convert a tif file to a jpeg file.

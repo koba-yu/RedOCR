@@ -5,8 +5,8 @@ Red [
     Needs: 'View
 ]
 
-; include tessered
-#include %../libs/tessered.red
+; include redocr
+#include %../libs/redocr.red
 
 factor: 1.0
 draw: []
@@ -34,11 +34,10 @@ view compose [
     text "language"
     language: field 100x30 "eng"
     button "OCR" [
-        tess: make tessered [
-            tessdata: folder/text
-            lang: language/text
-        ]
-        result: tess/ocr file/text
+        redocr/tessdata: folder/text
+        redocr/lang: language/text
+        
+        result: redocr/ocr file/text
         ocr-result/text: result
     ]
     zoom: slider 290 [
