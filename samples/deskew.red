@@ -6,6 +6,6 @@ Red [
 
 #include %../libs/lepapi.red
 
-pix: read to-local-file %./images/skewed-image.jpg
+pix: read-pix to-local-file %./images/skewed-image.jpg
 pix: deskew pix
 write-jpeg to-local-file %./images/deskewed-image.jpg pix

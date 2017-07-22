@@ -26,6 +26,22 @@ redocr: context [
         handle
     ]
 
+    read: function [
+        filepath [file! string!]
+        return: [integer!]        
+    ] [
+        lepapi/read-pix to-local-file filepath
+    ]
+
+    deskew: function [
+        pix [integer!]
+        return: [integer!]
+    ] [
+        dpix: lepapi/deskew pix
+
+        if pix <> dpix [ lepapi/dispose pix ]
+    ]
+
     ocr: function [
         filepath [file! string!]
         /rect left top width height
@@ -33,7 +49,7 @@ redocr: context [
     ] [
         handle: _init        
 
-        pix: lepapi/read to-local-file filepath
+        pix: lepapi/read-pix to-local-file filepath
         tessapi/set-image handle pix
         
         if rect [
@@ -52,7 +68,7 @@ redocr: context [
         destination [file! string!]
         return: [integer!]
     ] [
-        pix: lepapi/read to-local-file read-file
+        pix: lepapi/read-pix to-local-file read-file
         ret: lepapi/write-jpeg to-local-file destination pix
         lepapi/dispose pix
         ret

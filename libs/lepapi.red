@@ -35,7 +35,7 @@ Red [
 ;
 ; Definitions of routines
 ;    
-read: routine [
+read-pix: routine [
     filepath [string!]
     return: [integer!]
 ] [
