@@ -29,6 +29,14 @@ Red [
                 redsearch [integer!]
                 return: [int-ptr!]
             ]
+            _pixBilateral: "pixBilateral" [
+                pixs [int-ptr!]
+                spatial_stdev [float32!]
+                range_stdev [float32!]
+                ncomps [integer!]
+                reduction [integer!]
+                return: [int-ptr!]
+            ]
         ]
     ]
 ]
@@ -62,4 +70,14 @@ deskew: routine [
     return: [integer!]
 ] [
     as integer! _pixDeskew as int-ptr! pix 0
+]
+do-bilateral: routine [
+    pixs [integer!]
+    spatial_stdev [float!]
+    range_stdev [float!]
+    ncomps [integer!]
+    reduction [integer!]
+    return: [integer!]
+] [    
+    as integer! _pixBilateral as int-ptr! pixs as float32! spatial_stdev as float32! range_stdev ncomps reduction
 ]
