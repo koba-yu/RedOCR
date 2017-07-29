@@ -57,6 +57,6 @@ view compose [
             face/draw: draw
         ]
     ]
-    ocr-result: field 300x600
+    ocr-result: field 300x300
     do [zoom/data: 0.5]
 ]

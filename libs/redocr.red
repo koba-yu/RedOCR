@@ -33,15 +33,6 @@ redocr: context [
         lepapi/read-pix to-local-file filepath
     ]
 
-    deskew: function [
-        pix [integer!]
-        return: [integer!]
-    ] [
-        dpix: lepapi/deskew pix
-
-        if pix <> dpix [ lepapi/dispose pix ]
-    ]
-
     ocr: function [
         filepath [file! string!]
         /rect left top width height
@@ -63,14 +54,62 @@ redocr: context [
         text
     ]
 
+    deskew: function [
+        pix [integer!]
+        return: [integer!]
+    ] [
+        dpix: lepapi/deskew pix
+
+        if pix <> dpix [ lepapi/dispose pix ]
+    ]
+
+    do-bilateral: function [
+        pix [integer!]
+        return: [integer!]        
+    ] [
+        lepapi/do-bilateral pix 5.0 10.0 10 1
+    ]
+
+    save: function [
+        pix [integer!]
+        destination [string!]
+        type [word!]
+        return: [integer!]
+    ] [
+        type: formats/:type
+        lepapi/write-pix to-local-file destination pix type
+    ]
+
     to-jpeg: function [
-        read-file [file! string!]
+        file [file! string!]
         destination [file! string!]
         return: [integer!]
     ] [
-        pix: lepapi/read-pix to-local-file read-file
+        pix: lepapi/read-pix to-local-file file
         ret: lepapi/write-jpeg to-local-file destination pix
         lepapi/dispose pix
         ret
     ]
+
+    formats: #(
+        ; UNKNOWN: 0
+        BMP: 1
+        JPEG: 2
+        PNG: 3
+        TIFF: 4
+        TIFF_PACKBITS: 5
+        TIFF_RLE: 6
+        TIFF_G3: 7
+        TIFF_G4: 8	
+        TIFF_LZW: 9	
+        TIFF_ZIP: 10
+        PNM: 11
+        PS: 12
+        GIF: 13
+        JP2: 14
+        WEBP: 15
+        LPDF: 16
+        ; DEFAULT: 17
+        SPIX: 18
+    )
 ]
