@@ -1,13 +1,14 @@
 Red [
-    Title: "bilateral"
-    File: %bilateral.red
-    Author: Koba-yu    
+	Title:	"bilateral"
+	File:	%bilateral.red
+	Tabs:	4
+	Author:	Koba-yu    
 ]
 
 #include %../libs/redocr.red
 
-write-result: function [path pix] [
-    redocr/save pix to-local-file path 'BMP
+write-result: function [path pix][
+	redocr/save pix to-local-file path 'BMP
 ]
 
 pix: redocr/read to-local-file %./images/lena.bmp
