@@ -2,57 +2,57 @@ Red [
 	Title:	"redocr"
 	File:	%redocr.red
 	Tabs:	4
-	Author:	Koba-yu
+	Author:	"Koba-yu"
 ]
 
 lepapi: context [
-	#include %lepapi.red    
+	#include %lepapi.red
 ]
 
 tessapi: context [
-	#include %tessapi.red 
+	#include %tessapi.red
 ]
 
 redocr: context [
 
 	tessdata: %./tessdata
-	lang: "eng"   
+	lang: "eng"
 
 	_init: function [
 		return: [integer!]
 	][
 		handle: tessapi/create
 		ret: tessapi/init handle to-local-file tessdata lang
-		unless ret = 0 [ throw rejoin ["API initialization failed. result code:" ret] ]
+		unless ret = 0 [throw rejoin ["API initialization failed. result code:" ret] ]
 		handle
 	]
 
 	read: function [
 		filepath	[file! string!]
-		return:		[integer!]        
+		return:		[integer!]
 	][
 		lepapi/read-pix to-local-file filepath
 	]
 
 	ocr: function [
 		filepath	[file! string!]
-		/rect 
-			left 
-			top 
-			width 
+		/rect
+			left
+			top
+			width
 			height
 		return:		[string!]
 	][
-		handle: _init        
+		handle: _init
 
 		pix: lepapi/read-pix to-local-file filepath
 		tessapi/set-image handle pix
-        
+
 		if rect [
 			tessapi/set-rectangle handle left top width height
 			tessapi/recognize handle
 		]
-        
+
 		text: tessapi/ocr handle
 		lepapi/dispose pix
 		tessapi/dispose handle
@@ -70,7 +70,7 @@ redocr: context [
 
 	do-bilateral: function [
 		pix		[integer!]
-		return:	[integer!]        
+		return:	[integer!]
     ][
 		lepapi/do-bilateral pix 5.0 10.0 10 1
     ]
@@ -105,8 +105,8 @@ redocr: context [
 		TIFF_PACKBITS: 5
 		TIFF_RLE: 6
 		TIFF_G3: 7
-		TIFF_G4: 8	
-		TIFF_LZW: 9	
+		TIFF_G4: 8
+		TIFF_LZW: 9
 		TIFF_ZIP: 10
 		PNM: 11
 		PS: 12

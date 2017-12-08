@@ -49,7 +49,7 @@ Red [
 ]
 ;
 ; Definitions of routines
-;    
+;
 read-pix: routine [
 	filepath	[string!]
 	return:		[integer!]
