@@ -7,5 +7,5 @@ Red [
 
 #include %../libs/redocr.red
 
-ret: redocr/to-jpeg %./images/test_tif.tif %./images/test_jpg.jpg
+ret: redocr/to-jpeg %./images/test_tif.tif %./images/test_jpg.jpg 75
 print ret

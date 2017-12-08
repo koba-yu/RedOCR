@@ -88,10 +88,11 @@ redocr: context [
 	to-jpeg: function [
 		file		[file! string!]
 		destination	[file! string!]
+		quality		[integer!]
 		return:		[integer!]
 	][
 		pix: lepapi/read-pix to-local-file file
-		ret: lepapi/write-jpeg to-local-file destination pix
+		ret: lepapi/write-jpeg to-local-file destination pix quality
 		lepapi/dispose pix
 		ret
 	]

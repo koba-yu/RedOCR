@@ -73,12 +73,12 @@ write-pix: routine [
 write-jpeg: routine [
 	filename		[string!]
 	pix				[integer!]
-	; quality		[integer!]
-	; progressive 	[integer!]
+	quality			[integer!]
 	return:			[integer!]
 	/local t
 ][
-	_pixWriteJpeg as c-string! string/rs-head filename as int-ptr! pix 75 0
+	; Last argument is progressive flag. 0 for baseline sequential, 1 for progressive
+	_pixWriteJpeg as c-string! string/rs-head filename as int-ptr! pix quality 1
 ]
 deskew: routine [
 	pix		[integer!]
