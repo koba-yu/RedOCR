@@ -2,7 +2,7 @@ Red [
 	Title: "deskew an image"
 	File: %deskew.red
 	Tabs: 4
-	Author: Koba-yu
+	Author: "Koba-yu"
 ]
 
 #include %../libs/lepapi.red

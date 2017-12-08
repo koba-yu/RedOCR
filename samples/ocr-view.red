@@ -2,7 +2,7 @@ Red [
 	Title: "ocr-view"
 	File: %ocr-view.red
 	Tabs: 4
-	Author: Koba-yu
+	Author: "Koba-yu"
 	Needs: 'View
 ]
 

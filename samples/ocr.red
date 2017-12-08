@@ -2,7 +2,7 @@ Red [
 	Title:	"ocr sample"
 	File:	%sample.red
 	Tabs:	4
-	Author:	Koba-yu
+	Author:	"Koba-yu"
 ]
 
 #include %../libs/redocr.red

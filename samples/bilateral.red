@@ -2,7 +2,7 @@ Red [
 	Title:	"bilateral"
 	File:	%bilateral.red
 	Tabs:	4
-	Author:	Koba-yu    
+	Author:	"Koba-yu"
 ]
 
 #include %../libs/redocr.red

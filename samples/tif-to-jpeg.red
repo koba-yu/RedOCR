@@ -2,7 +2,7 @@ Red [
 	Title:	"tif to jpeg sample"
 	File:	%tif-to-jpeg.red
 	Tabs:	4
-	Author:	Koba-yu
+	Author:	"Koba-yu"
 ]
 
 #include %../libs/redocr.red

@@ -2,7 +2,7 @@ Red [
 	Title:	"lepapi"
 	File:	"%lepapi.red"
 	Tabs:	4
-	Author:	Koba-yu
+	Author:	"Koba-yu"
 ]
 
 ;
